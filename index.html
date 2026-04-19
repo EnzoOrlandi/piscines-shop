@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piscines Premium</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#eaf2ff; /* bleu clair propre */
+}
+
+/* HEADER */
+header{
+background:#0f172a;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* CART */
+.cart{
+position:relative;
+font-size:22px;
+cursor:pointer;
+}
+
+.badge{
+position:absolute;
+top:-10px;
+right:-10px;
+background:red;
+color:white;
+border-radius:50%;
+padding:3px 6px;
+font-size:12px;
+}
+
+/* SEARCH */
+.search{
+text-align:center;
+padding:15px;
+}
+
+.search input{
+padding:10px;
+width:60%;
+border-radius:8px;
+border:1px solid #ccc;
+outline:none;
+}
+
+/* GRID */
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:20px;
+}
+
+/* CARD */
+.card{
+background:white;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+/* CONTENT */
+.content{
+padding:12px;
+}
+
+.content h3{
+margin:8px 0;
+}
+
+.content p{
+margin:5px 0;
+color:#555; /* description lisible */
+font-size:14px;
+}
+
+/* PRICE */
+.price{
+color:#16a34a;
+font-weight:bold;
+margin:10px 0;
+}
+
+/* BUTTON */
+button{
+cursor:pointer;
+border:none;
+padding:10px;
+border-radius:8px;
+background:#2563eb;
+color:white;
+width:85%;
+margin:10px auto;
+display:block;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+/* PAGE CART */
+.page{
+display:none;
+padding:20px;
+}
+
+.active{
+display:block;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h2>🏊 Piscines Premium</h2>
+
+<div class="cart" onclick="showCart()">
+🛒<span class="badge" id="count">0</span>
+</div>
+</header>
+
+<div class="search">
+<input onkeyup="search(this.value)" placeholder="Rechercher une piscine...">
+</div>
+
+<!-- SHOP -->
+<div id="shop" class="container"></div>
+
+<!-- CART -->
+<div id="cartPage" class="page">
+<h2>🛒 Panier</h2>
+<div id="cart"></div>
+<h3 id="total"></h3>
+</div>
+
+<script>
+
+/* PRODUITS */
+let products = [
+{
+name:"Piscine Familiale",
+price:3500,
+desc:"Grande piscine idéale pour l’été en famille.",
+img:"images/piscine1.jpg"
+},
+{
+name:"Piscine Pegasus",
+price:15000,
+desc:"Design moderne et luxe pour votre jardin.",
+img:"images/piscine2.jpg"
+},
+{
+name:"Piscine Lidon",
+price:12000,
+desc:"Confort et détente absolue.",
+img:"images/piscine3.jpg"
+}
+];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* SAVE */
+function save(){
+localStorage.setItem("cart",JSON.stringify(cart));
+}
+
+/* RENDER */
+function render(){
+let shop=document.getElementById("shop");
+shop.innerHTML="";
+
+products.forEach((x,i)=>{
+shop.innerHTML+=`
+<div class="card" data-text="${x.name.toLowerCase()} ${x.desc.toLowerCase()}">
+<img src="${x.img}">
+<div class="content">
+<h3>${x.name}</h3>
+<p>${x.desc}</p>
+<p class="price">${x.price}€</p>
+<button onclick="add(${i})">Ajouter au panier</button>
+</div>
+</div>`;
+});
+
+document.getElementById("count").innerText=cart.length;
+}
+
+/* ADD */
+function add(i){
+cart.push(products[i]);
+save();
+render();
+}
+
+/* SHOW CART */
+function showCart(){
+document.getElementById("shop").style.display="none";
+document.getElementById("cartPage").classList.add("active");
+
+let c=document.getElementById("cart");
+c.innerHTML="";
+let total=0;
+
+cart.forEach((x,i)=>{
+total+=x.price;
+c.innerHTML+=`
+<p>${x.name} - ${x.price}€
+<button onclick="remove(${i})">X</button></p>`;
+});
+
+document.getElementById("total").innerText="Total : "+total+"€";
+}
+
+/* REMOVE */
+function remove(i){
+cart.splice(i,1);
+save();
+render();
+showCart();
+}
+
+/* SEARCH */
+function search(v){
+document.querySelectorAll(".card").forEach(c=>{
+let text=c.getAttribute("data-text");
+c.style.display=text.includes(v.toLowerCase())?"block":"none";
+});
+}
+
+/* INIT */
+render();
+
+</script>
+
+</body>
+</html>

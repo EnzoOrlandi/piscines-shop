@@ -1,0 +1,177 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+/* 🌈 FOND PREMIUM */
+body{
+min-height:100vh;
+background:linear-gradient(135deg,#e0f2fe,#f8fafc);
+color:#0f172a;
+background-attachment:fixed;
+}
+
+/* 🧠 HEADER PRO */
+header{
+background:#0f172a;
+color:white;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+position:sticky;
+top:0;
+z-index:100;
+}
+
+/* NAV */
+.nav button{
+background:none;
+border:none;
+color:white;
+font-size:16px;
+margin-right:10px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.nav button:hover{
+color:#38bdf8;
+transform:scale(1.1);
+}
+
+/* 🛒 BADGE */
+.badge{
+background:red;
+color:white;
+border-radius:50%;
+padding:3px 7px;
+font-size:12px;
+position:relative;
+top:-8px;
+left:-5px;
+}
+
+/* 🧱 GRID */
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+padding:20px;
+}
+
+/* 💳 CARD STYLE AMAZON */
+.card{
+background:white;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+transition:0.25s ease;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 15px 30px rgba(0,0,0,0.12);
+}
+
+/* 🖼 IMAGE PROPRE ET PLUS PETITE */
+.card img{
+width:100%;
+height:140px;
+object-fit:cover;
+display:block;
+transition:0.3s ease;
+}
+
+.card:hover img{
+transform:scale(1.05);
+}
+
+/* 📦 CONTENU */
+.content{
+padding:12px;
+text-align:center;
+}
+
+.content h3{
+font-size:15px;
+margin-bottom:5px;
+}
+
+.content p{
+font-size:13px;
+opacity:0.8;
+}
+
+/* 💰 PRIX STYLE SHOP */
+.price{
+color:#16a34a;
+font-weight:bold;
+font-size:16px;
+margin-top:5px;
+}
+
+/* 🔘 BOUTONS PRO */
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:8px 10px;
+border-radius:8px;
+cursor:pointer;
+margin:5px;
+transition:0.2s;
+font-size:13px;
+}
+
+button:hover{
+background:#1d4ed8;
+transform:scale(1.05);
+}
+
+/* 📄 PAGES */
+.page{
+display:none;
+padding:20px;
+min-height:80vh;
+}
+
+.active{
+display:block;
+}
+
+/* 🛒 LISTE PANIER */
+#cart p, #fav p{
+background:white;
+padding:10px;
+margin:10px 0;
+border-radius:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 5px 10px rgba(0,0,0,0.05);
+}
+
+/* 🧾 FOOTER PRO */
+.footer{
+background:#0f172a;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:30px;
+}
+
+/* 📱 RESPONSIVE */
+@media(max-width:600px){
+header{
+flex-direction:column;
+gap:10px;
+}
+
+.nav button{
+font-size:14px;
+}
+}
